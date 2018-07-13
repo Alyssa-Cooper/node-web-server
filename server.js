@@ -1,21 +1,22 @@
 const express = require('express');
+const hbs = require('hbs');
 
 var app = express();
 
+app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public')); //tales absolute path to folder you want to send
 
-app. get('/', (req, res)=> {
-// res.send('<h1> Hello Express!</h1>');
-res.send ({
-  name: 'Alyssa',
-    likes: [
-      'Biking',
-      'Hiking'
-    ]
+app.get('/', (req, res)=> {
+res.render('home.hbs', {
+  intro: 'Welcome',
+  currentYear: new Date().getFullYear()
 })
 });
 app.get('/about', (req, res) => {
-  res.send('About Page');
+  res.render('about.hbs', {
+    pageTitle: 'About Page',
+    currentYear: new Date().getFullYear()
+  });
 });
 
 app.get('/goodmusic', (req, res) => {
